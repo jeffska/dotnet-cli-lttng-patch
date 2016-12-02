@@ -1,0 +1,16 @@
+diff -aur .cache/pacaur/dotnet-cli/src/coreclr-1.1.0/src/pal/src/configure.cmake ./dotnet-cli-patch/src/coreclr-1.1.0/src/pal/src/configure.cmake
+--- a/src/pal/src/configure.cmake	2016-11-01 15:05:29.000000000 -0500
++++ b/src/pal/src/configure.cmake	2016-12-02 13:11:35.949588973 -0600
+@@ -33,7 +33,11 @@
+ check_include_files(lwp.h HAVE_LWP_H)
+ check_include_files(libunwind.h HAVE_LIBUNWIND_H)
+ check_include_files(runetype.h HAVE_RUNETYPE_H)
+-check_include_files(lttng/tracepoint.h HAVE_LTTNG_TRACEPOINT_H)
++#check_include_files(lttng/tracepoint.h HAVE_LTTNG_TRACEPOINT_H)
++find_package(LTTngUST)
++if(LTTNGUST_FOUND)
++  set(HAVE_LTTNG_TRACEPOINT_H 1)
++endif()
+ check_include_files(uuid/uuid.h HAVE_LIBUUID_H)
+ check_include_files(sys/sysctl.h HAVE_SYS_SYSCTL_H)
+ check_include_files(gnu/lib-names.h HAVE_GNU_LIBNAMES_H)

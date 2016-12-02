@@ -29,18 +29,21 @@ source=(
   "${_corefx}.tar.gz::https://github.com/dotnet/corefx/archive/v${_corefxver}.tar.gz"
   "${pkgname}-${pkgver}.tar.gz::https://dotnetcli.blob.core.windows.net/dotnet/preview/Binaries/${_sdkver}/dotnet-dev-fedora.23-x64.${_sdkver}.tar.gz"
   'llvm-39-github-pull-8311.patch'
-  'llvm-39-move.patch')
+  'llvm-39-move.patch'
+  'lttng-test.patch')
 noextract=("${pkgname}-${pkgver}.tar.gz")
 sha256sums=('edc1e416f07a71e2b3f70c1f1412e45a7396b3f0daac5bcb267d5f779b9d7444'
             'ca48ad090c72129ef145ef9b414767408a8fc1249e94a14dc6d4255b1e0b8648'
             '9802a59b2e68c1fd2c91648503302066bf0ab09b1d286dd6264e2ccc75f50b09'
             '581d6484626bbae820feb19d0613955fea333c025fb06d43a731a3db776686f7'
-            '84a0e56d00fd2f3f9f82b7d017652f03d4e7f80c6968d7fa1274f6e46af0ff3d')
+            '84a0e56d00fd2f3f9f82b7d017652f03d4e7f80c6968d7fa1274f6e46af0ff3d'
+            '3c6ab6037c810c16ea18beaacdb25a5a42a3b936840a30c4f3d5ebff7ccad7e2')
 
 prepare() {
   cd "${srcdir}/${_coreclr}"
   patch -p1 < "${srcdir}/llvm-39-github-pull-8311.patch"
   patch -p1 < "${srcdir}/llvm-39-move.patch"
+  patch -p1 < "${srcdir}/lttng-test.patch"
 }
 
 build() {
